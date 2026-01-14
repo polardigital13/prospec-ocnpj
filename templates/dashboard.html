@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Dashboard</h3>
+  <div class="btn-group">
+    <a class="btn btn-outline-primary" href="/run/capture">Capturar agora</a>
+    <a class="btn btn-outline-primary" href="/run/queue">Enfileirar</a>
+    <a class="btn btn-outline-success" href="/run/dispatch">Disparar</a>
+    <a class="btn btn-outline-secondary" href="/run/followups">Follow-ups</a>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-md-3"><div class="card"><div class="card-body">
+    <div class="text-muted">Leads</div><div class="fs-4" id="m_leads">{{total_leads}}</div>
+  </div></div></div>
+  <div class="col-md-3"><div class="card"><div class="card-body">
+    <div class="text-muted">Enviadas</div><div class="fs-4" id="m_sent">{{total_sent}}</div>
+  </div></div></div>
+  <div class="col-md-3"><div class="card"><div class="card-body">
+    <div class="text-muted">Falhas</div><div class="fs-4" id="m_failed">{{total_failed}}</div>
+  </div></div></div>
+  <div class="col-md-3"><div class="card"><div class="card-body">
+    <div class="text-muted">Opt-out</div><div class="fs-4" id="m_optouts">{{optouts}}</div>
+  </div></div></div>
+</div>
+
+<div class="row g-3 mt-1">
+  <div class="col-md-6">
+    <div class="card"><div class="card-body">
+      <h6>Envios (últimos 7 dias)</h6>
+      <ul class="mb-0">
+        {% for r in sent_7d %}
+          <li>{{r["day"]}}: {{r["c"]}}</li>
+        {% endfor %}
+      </ul>
+      <div class="small text-muted mt-2">Atualiza automaticamente a cada 10s.</div>
+    </div></div>
+  </div>
+  <div class="col-md-6">
+    <div class="card"><div class="card-body">
+      <h6>Últimas empresas</h6>
+      <ul class="mb-0">
+        {% for l in last_leads %}
+          <li><strong>{{l["razao_social"]}}</strong> — {{l["cidade"]}}/{{l["uf"]}} ({{l["segmento"]}}) — {{l["status"]}}</li>
+        {% endfor %}
+      </ul>
+    </div></div>
+  </div>
+</div>
+
+<script>
+async function refreshMetrics(){
+  try{
+    const r = await fetch("/api/metrics");
+    const d = await r.json();
+    document.getElementById("m_leads").innerText = d.leads;
+    document.getElementById("m_sent").innerText = d.sent;
+    document.getElementById("m_failed").innerText = d.failed;
+    document.getElementById("m_optouts").innerText = d.optouts;
+  } catch(e) {}
+}
+setInterval(refreshMetrics, 10000);
+</script>
+{% endblock %}

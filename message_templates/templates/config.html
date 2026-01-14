@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">Configurações</h3>
+
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="card"><div class="card-body">
+      <h6>Config atual (via .env)</h6>
+      <ul class="mb-0">
+        {% for k,v in env_view.items() %}
+          <li><strong>{{k}}</strong>: {{v}}</li>
+        {% endfor %}
+      </ul>
+      <div class="small text-muted mt-2">Edite o arquivo <code>.env</code> para alterar valores.</div>
+    </div></div>
+
+    <div class="card mt-3"><div class="card-body">
+      <h6>Opt-out manual (admin)</h6>
+      <form method="post" action="/optout" class="d-flex gap-2">
+        <input class="form-control" name="phone" placeholder="(11) 9xxxx-xxxx" required>
+        <button class="btn btn-danger" type="submit">Bloquear</button>
+      </form>
+      <div class="small text-muted mt-2">Bloqueia o número (E.164) em <code>opt_out</code>.</div>
+    </div></div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card"><div class="card-body">
+      <h6>Templates (JSON)</h6>
+      <form method="post">
+        <textarea class="form-control font-monospace" name="templates_json" rows="22">{{templates_json}}</textarea>
+        <button class="btn btn-primary mt-2" type="submit">Salvar templates</button>
+      </form>
+      <div class="small text-muted mt-2">Dica: mantenha as chaves como <code>template_restaurante</code>, etc.</div>
+    </div></div>
+  </div>
+</div>
+{% endblock %}

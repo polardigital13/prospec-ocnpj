@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">Relatórios</h3>
+
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="card"><div class="card-body">
+      <h6>Leads por segmento</h6>
+      <ul class="mb-0">
+        {% for r in by_segment %}
+          <li><strong>{{r["segmento"]}}</strong>: {{r["leads"]}}</li>
+        {% endfor %}
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card"><div class="card-body">
+      <h6>Mensagens enviadas por template</h6>
+      <ul class="mb-0">
+        {% for r in by_template %}
+          <li><strong>{{r["template_key"]}}</strong>: {{r["sent"]}}</li>
+        {% endfor %}
+      </ul>
+    </div></div>
+  </div>
+</div>
+{% endblock %}

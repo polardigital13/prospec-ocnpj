@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">Leads (últimos 200)</h3>
+
+<div class="card">
+  <div class="card-body table-responsive">
+    <table class="table table-sm align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>CNPJ</th>
+          <th>Empresa</th>
+          <th>Cidade/UF</th>
+          <th>CNAE</th>
+          <th>Segmento</th>
+          <th>Telefone</th>
+          <th>Status</th>
+          <th>Criado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr>
+          <td>{{r["id"]}}</td>
+          <td>{{r["cnpj"]}}</td>
+          <td>{{r["razao_social"]}}</td>
+          <td>{{r["cidade"]}}/{{r["uf"]}}</td>
+          <td>{{r["cnae_principal"]}}</td>
+          <td>{{r["segmento"]}}</td>
+          <td>{{r["telefone"]}}</td>
+          <td><span class="badge text-bg-secondary">{{r["status"]}}</span></td>
+          <td class="text-muted small">{{r["created_at"]}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{
+  "template_restaurante": "Olá! Vi que abriu {empresa} em {cidade}. Parabéns! 🎉 Tenho uma solução para reduzir custos fixos: desconto de até 25% na conta de energia, sem instalação. Quer que eu te explique rapidinho?",
+  "template_industria": "Olá! Para a {empresa}, reduzir custos operacionais é vital. Temos economia de até 25% na conta de energia com processo 100% administrativo. Posso te enviar os detalhes?",
+  "template_varejo": "Olá! Vi a {empresa} em {cidade}. Temos uma forma de reduzir até 25% da conta de energia sem obra/instalação. Quer entender como funciona?",
+  "template_servicos": "Olá! A {empresa} pode reduzir despesas fixas com até 25% de economia na energia, sem alterações na infraestrutura. Faz sentido conversar?",
+  "template_followup_24h": "Oi! Passando pra confirmar se viu minha mensagem sobre economia na conta de energia (até 25%, sem instalação). Quer que eu detalhe?",
+  "template_followup_72h": "Olá! Se preferir, posso te mandar um resumo em 3 tópicos de como funciona a economia na energia. Posso enviar?",
+  "template_followup_7d": "Oi! Último toque 🙂 Ainda faz sentido olhar a economia de energia (até 25%, sem instalação)? Se não quiser receber mensagens, responda SAIR."
+}
