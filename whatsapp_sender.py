@@ -8,20 +8,21 @@ from utils import to_e164_br
 ZAPI_INSTANCE_ID = os.getenv("ZAPI_INSTANCE_ID", "3EA5E0B8F67E81D0391B3A66A58532E9")
 ZAPI_TOKEN = os.getenv("ZAPI_TOKEN", "C558A2FB2D68CBD1E6533B45")
 ZAPI_BASE_URL = os.getenv("ZAPI_BASE_URL", "https://api.z-api.io").rstrip("/")
-ADMIN_PHONE = os.getenv("ADMIN_PHONE", "")
+ADMIN_PHONE = os.getenv("ADMIN_PHONE", "11911346396")
 
 
 def send_text(phone_e164: str, text: str):
     """
-    Ajuste o endpoint se a sua conta Z-API exigir variação.
+    Envia mensagem via Z-API com token no header.
     """
     if not ZAPI_INSTANCE_ID or not ZAPI_TOKEN:
         raise RuntimeError("ZAPI_INSTANCE_ID / ZAPI_TOKEN não configurados.")
 
-    url = f"{ZAPI_BASE_URL}/instances/{ZAPI_INSTANCE_ID}/token/{ZAPI_TOKEN}/send-text"
+    url = f"{ZAPI_BASE_URL}/instances/{ZAPI_INSTANCE_ID}/send-text"
+    headers = {"Client-Token": ZAPI_TOKEN}
     payload = {"phone": phone_e164, "message": text}
 
-    r = requests.post(url, json=payload, timeout=30)
+    r = requests.post(url, json=payload, headers=headers, timeout=30)
     if r.status_code not in (200, 201):
         log_event("error", f"ZAPI status={r.status_code} body={r.text[:500]}")
         return {"ok": False, "status": r.status_code, "error": r.text}
