@@ -3,6 +3,7 @@ from database import get_conn, log_event
 from utils import today_str
 from segmentation import segmento_por_cnae
 from cnpj_scraper import fetch_offices_by_founded_range, extract_items, normalize_office
+from whatsapp_sender import notify_admin_new_lead
 
 
 def capture_job():
@@ -54,6 +55,14 @@ def capture_job():
                         ),
                     )
                     inserted += 1
+                    # Envia notificação para o admin
+                    notify_admin_new_lead(
+                        lead["cnpj"],
+                        lead["razao_social"],
+                        lead["cidade"],
+                        lead["uf"],
+                        seg
+                    )
                 except Exception as e:
                     log_event("error", f"Failed to insert lead: {str(e)}")
 
